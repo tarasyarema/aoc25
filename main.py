@@ -10,11 +10,36 @@ import click
 MAIN_TEMPLATE = '''
 import aiofiles
 
-async def main(fn: str = "in.txt", stage: int = 1):
+from src.utils.decs import timeit
+
+
+PartType = list[str]
+
+
+async def main(fn: str = "in.txt", stage: int = 1, debug: bool = False):
     async with aiofiles.open(fn, mode='r') as f:
         f = await f.readlines()
 
     print("{day}: {{}} -> {{}} lines".format(fn, len(f)))
+
+    # Pre-process input based on challenge
+    # f = ...
+
+    if stage == 1 or stage < 1:
+        print(f"Part 1:\\n{{await p1(f, debug=debug)}}")
+
+    if stage == 2 or stage < 1:
+        print(f"Part 2:\\n{{await p2(f, debug=debug)}}")
+
+
+@timeit
+async def p1(f: PartType, debug: bool = False) -> int:
+    return 0
+
+
+@timeit
+async def p2(f: PartType, debug: bool = False) -> int:
+    return 0
 '''.strip()
 
 
@@ -27,7 +52,8 @@ def main():
 @click.argument("n", type=int)
 @click.option("--fn", "-f", type=str, default="in.txt", help="Input file name", show_default=True)
 @click.option("--stage", "-s", type=int, default=0, help="Stage number (1 or 2)", show_default=True)
-def run(n: int, fn: str = "in.txt", stage: int = 1):
+@click.option("--debug", "-d", is_flag=True, help="Enable debug mode")
+def run(n: int, fn: str = "in.txt", stage: int = 1, debug: bool = False):
     day = f"{n:02d}"
     module_name = f"src.{day}.main"
 
@@ -52,6 +78,7 @@ def run(n: int, fn: str = "in.txt", stage: int = 1):
         module.main(
             fn=fn_p.as_posix(),
             stage=stage,
+            debug=debug
         )
     )
 
