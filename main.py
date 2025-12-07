@@ -65,11 +65,8 @@ def run(n: int, fn: str | None = None, stage: int = 1, debug: bool = False):
         sys.exit(1)
 
     if not fn:
-        if stage == 1:
+        if stage == 1 or stage == 2:
             fn = "in1.txt"
-
-        elif stage == 2:
-            fn = "in2.txt"
 
         else:
             fn = "in.txt"
