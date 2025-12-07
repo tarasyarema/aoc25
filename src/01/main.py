@@ -1,7 +1,7 @@
 import aiofiles
 
 
-async def main(fn: str, stage: int = 1):
+async def main(fn: str, stage: int = 1, debug: bool = False):
     async with aiofiles.open(fn, mode='r') as f:
         f = await f.readlines()
 

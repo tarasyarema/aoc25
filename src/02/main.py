@@ -6,7 +6,7 @@ from collections import defaultdict
 import aiofiles
 
 
-async def main(fn: str = "in.txt", stage: int = 1):
+async def main(fn: str = "in.txt", stage: int = 1, debug: bool = False):
     async with aiofiles.open(fn, mode='r') as f:
         f = await f.readlines()
 
